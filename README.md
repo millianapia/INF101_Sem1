@@ -261,7 +261,7 @@ Kikk på testene i `inf101.v17.boulderdash.bdobjects.tests`. Disse testene følg
 * Kjør noen få steg, og se at objektene beveger seg som forventet
 
 Dette er typiske eksemeplbaserte tester. Se på testen i `BugTest`; den sjekker at i løpet av hundre steg vil en uhindret BDBug bevege seg
-minst ett steg. Utvid denne litt:
+minst ett steg. Utvid denne litt med flere testmetoder:
 
 * Lag en testmetode til hvor buggen er innelåst av vegger ('*'), og se at den ikke beveger seg da; tilsvarende for sand ('#').
 * Lag en test hvor du sjekker at den nye posisjonen til buggen er som forventet (buggene beveger seg WEST, NORTH, EAST, SOUTH).
