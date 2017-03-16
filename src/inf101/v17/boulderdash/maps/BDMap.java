@@ -3,6 +3,7 @@ package inf101.v17.boulderdash.maps;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import inf101.v17.boulderdash.Direction;
 import inf101.v17.boulderdash.IllegalMoveException;
@@ -29,6 +30,7 @@ public class BDMap {
 	 * Stores the data of the map
 	 */
 	protected IGrid<IBDObject> grid;
+	// protected HashMap<IBDObject, Position> newHashMap = new HashMap<>();
 	/**
 	 * A separate reference to the player, since it is accessed quite
 	 * frequently.
@@ -155,6 +157,8 @@ public class BDMap {
 			return new BDSand(this);
 		} else if (c == ' ') {
 			return new BDEmpty(this);
+		} else if (c == 'd') {
+			return new BDDiamond(this);
 		}
 
 		System.err.println("Illegal character in map definition at (" + x + ", " + y + "): '" + c + "'");
@@ -245,7 +249,19 @@ public class BDMap {
 	 */
 	public Position getPosition(IBDObject object) {
 		// TODO
+
+		int x = grid.getWidth();
+		int y = grid.getHeight();
+
+		for (int i = 0; i < x; i++)
+			for (int j = 0; j < y; j++)
+
+				if (grid.get(i, j).equals(object))
+
+					return new Position(i, j);
 		
+				
+
 		return null;
 	}
 
@@ -285,6 +301,19 @@ public class BDMap {
 
 	public void step() {
 		// TODO
+		int x = grid.getWidth();
+		int y = grid.getHeight();
 		
+	
+		for(int i = 0; i<x; i++)
+			for(int j = 0; j<y; j++)
+				
+					grid.get(i,j).step();
+			
+
+		
+		
+		
+
 	}
 }
