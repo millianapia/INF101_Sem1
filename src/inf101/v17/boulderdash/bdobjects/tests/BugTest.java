@@ -10,6 +10,8 @@ import inf101.v17.boulderdash.Position;
 import inf101.v17.boulderdash.bdobjects.AbstractBDFallingObject;
 import inf101.v17.boulderdash.bdobjects.BDBug;
 import inf101.v17.boulderdash.bdobjects.BDDiamond;
+import inf101.v17.boulderdash.bdobjects.BDPlayer;
+import inf101.v17.boulderdash.bdobjects.IBDMovingObject;
 import inf101.v17.boulderdash.bdobjects.IBDObject;
 import inf101.v17.boulderdash.maps.BDMap;
 import inf101.v17.datastructures.IGrid;
@@ -85,14 +87,28 @@ public class BugTest {
 	public void bugNewPosition() {
 
 		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
+		grid.set(1, 1, 'b');
 		map = new BDMap(grid);
-		Position bugPos = new Position(2, 2);
+		Position bugPos = new Position(1, 1);
+		Position origPos = new Position(1, 1);
 		IBDObject bug = map.get(bugPos);
 		assertTrue(bug instanceof BDBug);
 
-		for (int i = 0; i < 4; i++) {
+		System.out.print(bug.getPosition());
+		Position westPos = origPos.moveDirection(Direction.WEST);
 
-		}
+		map.canGo(bug, Direction.WEST);
+		map.step();
+		System.out.print(bug.getPosition());
+
+		assertEquals(westPos, bug.getPosition());
+		Position northPos = westPos.moveDirection(Direction.NORTH);
+		assertEquals(northPos, Direction.NORTH);
+		Position southPos = northPos.moveDirection(Direction.SOUTH);
+		assertEquals(southPos, Direction.SOUTH);
+		Position eastPos = southPos.moveDirection(Direction.EAST);
+
+		assertEquals(eastPos, Direction.EAST);
 
 	}
 
@@ -100,14 +116,24 @@ public class BugTest {
 	public void bugVsPlayer() {
 
 		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
+		grid.set(0, 1, 'p');
+		grid.set(1, 1, 'b');
 		map = new BDMap(grid);
-		Position bugPos = new Position(2, 2);
-		Position player = new Position(2, 1);
+		Position bugPos = new Position(1, 1);
+		Position playerPos = new Position(0, 1);
 		IBDObject bug = map.get(bugPos);
+		IBDObject player = map.get(playerPos);
 		assertTrue(bug instanceof BDBug);
+		assertTrue(player instanceof BDPlayer);
 
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i <= 10; i++) {
+			map.step();
 
+		}
+		if ((map.getPlayer().isAlive()) == false) {
+			assertTrue(true);
+		} else {
+			fail("player is alive!");
 		}
 
 	}
