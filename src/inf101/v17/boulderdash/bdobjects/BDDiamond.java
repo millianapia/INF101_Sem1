@@ -1,6 +1,11 @@
 package inf101.v17.boulderdash.bdobjects;
 
 import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+
+import java.io.InputStream;
 
 import inf101.v17.boulderdash.maps.BDMap;
 
@@ -11,14 +16,17 @@ import inf101.v17.boulderdash.maps.BDMap;
  *
  */
 public class BDDiamond extends AbstractBDFallingObject {
+	private ImagePattern image;
 
 	public BDDiamond(BDMap owner) {
 		super(owner);
+		  InputStream resourceAsStream = getClass().getResourceAsStream("../diamond.png");
+	        image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1,1, true);
 	}
 
 	@Override
-	public Color getColor() {
-		return Color.LIGHTBLUE;
+	public Paint getColor() {
+		return image;
 	}
 	
 

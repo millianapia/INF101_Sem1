@@ -3,7 +3,11 @@ package inf101.v17.boulderdash.bdobjects;
 import javafx.scene.paint.Color;
 
 import inf101.v17.boulderdash.maps.BDMap;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 
+import java.io.InputStream;
 /**
  * Implementation of a piece of a wall.
  *
@@ -11,14 +15,17 @@ import inf101.v17.boulderdash.maps.BDMap;
  *
  */
 public class BDWall extends AbstractBDObject {
+	private ImagePattern image;
 
 	public BDWall(BDMap owner) {
 		super(owner);
+		  InputStream resourceAsStream = getClass().getResourceAsStream("../wall.png");
+	        image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1,1, true);
 	}
 
 	@Override
-	public Color getColor() {
-		return Color.BLACK;
+	public Paint getColor() {
+		return image;
 	}
 
 	@Override
