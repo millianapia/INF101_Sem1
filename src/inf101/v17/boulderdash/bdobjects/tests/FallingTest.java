@@ -169,8 +169,40 @@ public class FallingTest {
 	}
 	
 	@Test
-	public void pushTest() {
-	
+	public void eastPushTest() {
+		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
+		grid.set(0, 0, 'p');
+		grid.set(0, 1, 'r');
+		map = new BDMap(grid);
+		Position rockPos = new Position(0, 1);
+		Position playerPos = new Position(0, 0);
+		IBDObject rock = map.get(rockPos);
+		IBDObject player = map.get(playerPos);
+		assertTrue(rock instanceof BDRock);
+		assertTrue(player instanceof BDPlayer);
+		
+		
+		System.out.println(rockPos);
+		
+		System.out.println(playerPos);
+
+		
+		
+		
+	//rock.push();
+	//rock.step();
+		rock.step();
+		
+	System.out.println(rockPos);
+		
+		System.out.println(playerPos);
+		
+		
+		
+		assertEquals(rock, map.get(0, 2));
+		
+		
+		
 	
 	}
 	

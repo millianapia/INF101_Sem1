@@ -94,21 +94,39 @@ public class BugTest {
 		IBDObject bug = map.get(bugPos);
 		assertTrue(bug instanceof BDBug);
 
-		System.out.print(bug.getPosition());
 		Position westPos = origPos.moveDirection(Direction.WEST);
-
-		map.canGo(bug, Direction.WEST);
-		map.step();
-		System.out.print(bug.getPosition());
-
-		assertEquals(westPos, bug.getPosition());
 		Position northPos = westPos.moveDirection(Direction.NORTH);
-		assertEquals(northPos, Direction.NORTH);
-		Position southPos = northPos.moveDirection(Direction.SOUTH);
-		assertEquals(southPos, Direction.SOUTH);
-		Position eastPos = southPos.moveDirection(Direction.EAST);
+		Position eastPos = northPos.moveDirection(Direction.EAST);
+		Position southPos = eastPos.moveDirection(Direction.SOUTH);
 
-		assertEquals(eastPos, Direction.EAST);
+		for (int i = 0; i <= 10; i++) {
+			map.step();
+		}
+
+		Position bugPos1 = bug.getPosition();
+
+		for (int i = 0; i <= 10; i++) {
+			map.step();
+		}
+
+		Position bugPos2 = bug.getPosition();
+
+		for (int i = 0; i <= 10; i++) {
+			map.step();
+		}
+
+		Position bugPos3 = bug.getPosition();
+
+		for (int i = 0; i <= 10; i++) {
+			map.step();
+		}
+
+		Position bugPos4 = bug.getPosition();
+
+		assertEquals(westPos, bugPos1);
+		assertEquals(northPos, bugPos2);
+		assertEquals(eastPos, bugPos3);
+		assertEquals(southPos, bugPos4);
 
 	}
 

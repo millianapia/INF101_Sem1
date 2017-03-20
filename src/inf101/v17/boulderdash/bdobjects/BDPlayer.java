@@ -3,6 +3,8 @@ package inf101.v17.boulderdash.bdobjects;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 
+import static org.junit.Assert.assertTrue;
+
 import inf101.v17.boulderdash.Direction;
 import inf101.v17.boulderdash.IllegalMoveException;
 import inf101.v17.boulderdash.Position;
@@ -48,7 +50,15 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 	}
 
 	public void keyPressed(KeyCode key) {
-		// TODO
+		if (key == KeyCode.LEFT)
+			askedToGo = Direction.WEST;
+		else if (key == KeyCode.RIGHT)
+			askedToGo = Direction.EAST;
+		else if (key == KeyCode.UP)
+			askedToGo = Direction.NORTH;
+		else if (key == KeyCode.DOWN)
+			askedToGo = Direction.SOUTH;
+
 	}
 
 	@Override
@@ -67,11 +77,52 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 
 	@Override
 	public void step() {
-		// TODO
-		super.step();
+		Position playerPos = this.getPosition();
+	
+		/*if (askedToGo != null) {
+			if (owner.canGo(playerPos, askedToGo)) {
+			
+				
+		
+				owner.getPosition(askedToGo);
+			
+		IBDObject obj = owner.get(askedToGo);
+				
+			}
+
+		}*/
+		
+		
+		
+			Position next = this.getNextPosition();
+		try {
+			prepareMove(next);
+		} catch (IllegalMoveException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		askedToGo = null;
+		super.step();	
 	}
-	
-	
+
 	@Override
 	public boolean isKillable() {
 		return true;
