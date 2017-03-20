@@ -78,49 +78,63 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 	@Override
 	public void step() {
 		Position playerPos = this.getPosition();
-	
-		/*if (askedToGo != null) {
-			if (owner.canGo(playerPos, askedToGo)) {
+		IBDObject player = owner.get(this.getX(), this.getY());
+		if (askedToGo != null && owner.canGo(player, askedToGo)) {
+			Position next = playerPos.moveDirection(askedToGo);
 			
-				
+			
+			
+			if(owner.get(next) instanceof BDDiamond){
+			
+				try {
+					prepareMove(playerPos.moveDirection(askedToGo));	
+					diamondCnt++;
+				} catch (IllegalMoveException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				}
+			else if(owner.get(next) instanceof BDRock){
+				try {
 		
-				owner.getPosition(askedToGo);
-			
-		IBDObject obj = owner.get(askedToGo);
+						owner.get(next).step();
+						prepareMove(playerPos.moveDirection(askedToGo));	
+
+						
+
+				} catch (IllegalMoveException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
+			else if(owner.get(next) instanceof BDBug){
+				try {
+					prepareMove(playerPos.moveDirection(askedToGo));
+					kill();
+				} catch (IllegalMoveException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			else{
+				try {
+					prepareMove(playerPos.moveDirection(askedToGo));
+				} catch (IllegalMoveException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 
-		}*/
-		
-		
-		
-			Position next = this.getNextPosition();
-		try {
-			prepareMove(next);
-		} catch (IllegalMoveException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			
+			
+			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
 		askedToGo = null;
-		super.step();	
+		super.step();
 	}
 
 	@Override

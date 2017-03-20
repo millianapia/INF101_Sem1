@@ -182,21 +182,30 @@ public class FallingTest {
 		assertTrue(player instanceof BDPlayer);
 		
 		
-		System.out.println(rockPos);
+		System.out.println("steinpos1"+rockPos);
 		
-		System.out.println(playerPos);
+		System.out.println("spillerpos1: "+playerPos);
+
+	
+		
+		playerPos.moveDirection(Direction.EAST);
+		map.step();
+		map.step();
+		map.step();
+		map.step();
+
+		rock.step();
+		rock.step();
+
+		rock.step();
+		rock.step();
 
 		
+		map.step();
+	
 		
-		
-	//rock.push();
-	//rock.step();
-		rock.step();
-		
-	System.out.println(rockPos);
-		
-		System.out.println(playerPos);
-		
+		System.out.println("spillerpos2: "+playerPos);
+		System.out.println("steinpos2"+rockPos);
 		
 		
 		assertEquals(rock, map.get(0, 2));
