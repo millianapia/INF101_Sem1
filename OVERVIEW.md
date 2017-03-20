@@ -1,5 +1,5 @@
 # Oversikt
-
+2.2 ligger i egen pdf som heter "Semesteroppgave - 1.pdf"
 
 wall:
 Stone Brick Wall Background
