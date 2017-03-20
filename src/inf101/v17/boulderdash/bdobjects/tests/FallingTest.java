@@ -8,7 +8,10 @@ import org.junit.Test;
 import inf101.v17.boulderdash.Direction;
 import inf101.v17.boulderdash.Position;
 import inf101.v17.boulderdash.bdobjects.AbstractBDFallingObject;
+import inf101.v17.boulderdash.bdobjects.BDBug;
 import inf101.v17.boulderdash.bdobjects.BDDiamond;
+import inf101.v17.boulderdash.bdobjects.BDPlayer;
+import inf101.v17.boulderdash.bdobjects.BDRock;
 import inf101.v17.boulderdash.bdobjects.IBDObject;
 import inf101.v17.boulderdash.maps.BDMap;
 import inf101.v17.datastructures.IGrid;
@@ -30,7 +33,7 @@ public class FallingTest {
 	public void fallingTest2() {
 		checkFall(new Position(0, 4));
 	}
-	
+
 	@Test
 	public void fallingKills1() {
 		// diamond two tiles above kills player
@@ -39,8 +42,7 @@ public class FallingTest {
 		grid.set(0, 2, 'p');
 		grid.set(0, 0, '*');
 		map = new BDMap(grid);
-		
-		
+
 		checkFall(new Position(0, 4));
 		checkFall(new Position(0, 3));
 		checkFall(new Position(0, 2));
@@ -55,12 +57,30 @@ public class FallingTest {
 		grid.set(0, 2, 'p');
 		grid.set(0, 0, '*');
 		map = new BDMap(grid);
-		
-		
-		checkFall(new Position(0, 4));
-		checkFall(new Position(0, 3));
-		checkFall(new Position(0, 2));
-		assertFalse(map.getPlayer().isAlive());
+		Position diamondPos = new Position(0, 3);
+		Position playerPos = new Position(0, 2);
+		IBDObject diamond = map.get(diamondPos);
+		IBDObject player = map.get(playerPos);
+		assertTrue(diamond instanceof BDDiamond);
+		assertTrue(player instanceof BDPlayer);
+
+		map.step();
+		map.step();
+		map.step();
+		map.step();
+		assertEquals(diamond, map.get(0, 3));
+
+		map.step();
+		map.step();
+		map.step();
+		map.step();
+		assertEquals(diamond, map.get(0, 3));
+
+		// wall reached, no more falling
+		for (int i = 0; i < 10; i++)
+			map.step();
+		assertEquals(diamond, map.get(0, 3));
+
 	}
 
 	@Test
@@ -107,7 +127,7 @@ public class FallingTest {
 				next = pos;
 			}
 
-			//map.step(); System.out.println(map.getPosition(object));
+			// map.step(); System.out.println(map.getPosition(object));
 			map.step();
 			map.step();
 			map.step();
@@ -117,5 +137,46 @@ public class FallingTest {
 		} else
 			return pos;
 	}
+
+	@Test
+	public void fallingTest3() {
+		IGrid<Character> grid = new MyGrid<>(2, 5, ' ');
+		grid.set(0, 4, 'r');
+		grid.set(0, 0, '*');
+		map = new BDMap(grid);
+		Position rockPos = new Position(0, 4);
+		IBDObject rock = map.get(rockPos);
+		assertTrue(rock instanceof BDRock);
+
+		map.step();
+		map.step();
+		map.step();
+		map.step();
+		assertEquals(rock, map.get(0, 3));
+
+		map.step();
+		map.step();
+		map.step();
+		map.step();
+		assertEquals(rock, map.get(0, 2));
+
+		map.step();
+		map.step();
+		map.step();
+		map.step();
+		assertEquals(rock, map.get(0, 1));
+
+	}
+	
+	@Test
+	public void pushTest() {
+	
+	
+	}
+	
+	
+	
+	
+	
 
 }
