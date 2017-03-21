@@ -1,12 +1,6 @@
 # Oversikt
 2.2 ligger i egen pdf som heter "Semesteroppgave - 1.pdf"
 
-wall:
-Stone Brick Wall Background
-Author: 
-Aetherna
-Saturday, January 23, 2016 - 17:09
-http://opengameart.org/content/stone-brick-wall-background
 
 
 song:
@@ -22,9 +16,10 @@ Blender Foundation
 Thursday, November 18, 2010 - 14:05
 http://opengameart.org/content/push-stone-boulder-yo-frankie 
 
-diamond:
-blue gems
+texture:
+Colored Blocks - sketchy
 Author: 
-cron
-Friday, July 18, 2014 - 01:47
-http://opengameart.org/content/blue-gems
+TinyWorlds
+Monday, March 26, 2012 - 12:59
+http://opengameart.org/content/colored-blocks-sketchy
+
