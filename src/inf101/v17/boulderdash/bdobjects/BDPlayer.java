@@ -1,9 +1,16 @@
 package inf101.v17.boulderdash.bdobjects;
 
+import javafx.scene.image.Image;import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
+
+import java.io.InputStream;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 
 import static org.junit.Assert.assertTrue;
+
 
 import inf101.v17.boulderdash.Direction;
 import inf101.v17.boulderdash.IllegalMoveException;
@@ -32,15 +39,18 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 	 * Number of diamonds collected so far.
 	 */
 	protected int diamondCnt = 0;
-
+	private ImagePattern image;
 	public BDPlayer(BDMap owner) {
 		super(owner);
+		  InputStream resourceAsStream = getClass().getResourceAsStream("../player.png");
+	        image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1,1, true);
 	}
 
 	@Override
-	public Color getColor() {
-		return Color.BLUE;
+	public Paint getColor() {
+		return image;
 	}
+	
 
 	/**
 	 * @return true if the player is alive
