@@ -107,8 +107,9 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 				}
 			else if(owner.get(next) instanceof BDRock){
 				try {
-		
-						owner.get(next).step();
+					BDRock rock = (BDRock) owner.get(next);
+if(rock.push(askedToGo))
+				
 						prepareMove(playerPos.moveDirection(askedToGo));	
 
 						
