@@ -54,13 +54,51 @@ public abstract class AbstractBDFallingObject extends AbstractBDKillingObject {
 			try {
 				// Get the object in the tile below.
 				Position below = pos.moveDirection(Direction.SOUTH);
-				IBDObject under = owner.get(below);
+				Position east = pos.moveDirection(Direction.EAST);
+				Position west = pos.moveDirection(Direction.WEST);
+				Position belowEast = east.moveDirection(Direction.SOUTH);
+				Position belowWest = west.moveDirection(Direction.SOUTH);
 
+				IBDObject under = owner.get(below);
+				IBDObject right = null;
+				IBDObject left = null;
+				IBDObject underRight= null;
+				IBDObject underLeft = null;
+			
+
+				//To check if coordinates exist in grid
+				if(pos.getX()+1 < owner.getWidth()){
+					right = owner.get(east);
+					underRight = owner.get(belowEast);
+				}
+				
+				if(pos.getX()> 0){
+					left = owner.get(west);
+					underLeft = owner.get(belowWest);
+					
+				}
+				
+				
 				if (falling) {
+					
 					// fall one step if tile below is empty or killable
 					if (under instanceof BDEmpty || under instanceof IBDKillable) {
 						prepareMoveTo(Direction.SOUTH);
-					} else {
+					} 
+					
+					else if(under instanceof BDRock){
+						if(underRight instanceof BDEmpty ||underRight instanceof IBDKillable){
+						prepareMoveTo(Direction.SOUTH);
+						prepareMoveTo(Direction.EAST);
+						}
+						else if(underLeft instanceof BDEmpty ||underLeft instanceof IBDKillable){
+							prepareMoveTo(Direction.SOUTH);
+							prepareMoveTo(Direction.WEST);
+						}
+						else
+							falling = false;
+					}
+					else {
 						falling = false;
 					}
 				} else {
