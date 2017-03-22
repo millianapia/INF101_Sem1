@@ -17,6 +17,8 @@ import java.io.InputStream;
 public class BDWall extends AbstractBDObject {
 	private ImagePattern image;
 
+	
+	//added texture to wall through ImagePattern
 	public BDWall(BDMap owner) {
 		super(owner);
 		  InputStream resourceAsStream = getClass().getResourceAsStream("../wall.png");

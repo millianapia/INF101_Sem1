@@ -15,6 +15,9 @@ import inf101.v17.boulderdash.maps.BDMap;
  * @author larsjaffke
  *
  */
+
+
+//added texture to wall through ImagePattern
 public class BDSand extends AbstractBDObject {
 	private ImagePattern image;
 	public BDSand(BDMap owner) {

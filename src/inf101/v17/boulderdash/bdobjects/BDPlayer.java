@@ -41,6 +41,7 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 	protected int diamondCnt = 0;
 	private ImagePattern image;
 
+	// added texture to wall through ImagePattern
 	public BDPlayer(BDMap owner) {
 		super(owner);
 		InputStream resourceAsStream = getClass().getResourceAsStream("../player.png");
@@ -59,6 +60,7 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 		return alive;
 	}
 
+	// saves a button as a direction, then saves the direction in askedtogo
 	public void keyPressed(KeyCode key) {
 		if (key == KeyCode.LEFT)
 			askedToGo = Direction.WEST;
@@ -85,6 +87,13 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 		return diamondCnt;
 	}
 
+	/*Method to move player
+	 * first checks if askedToGo is not null and if player can go there
+	 * saves next position in next. Then different ifs and else ifs, to 
+	 * check which element it is. Different elements have different
+	 * behavior. diamond count should increase if its diamond etc.  
+	 * sets askedToGo to null, and use super.step()
+	 * */
 	@Override
 	public void step() {
 		Position playerPos = this.getPosition();

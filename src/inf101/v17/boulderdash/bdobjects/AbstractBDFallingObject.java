@@ -52,7 +52,11 @@ public abstract class AbstractBDFallingObject extends AbstractBDKillingObject {
 		// The object cannot fall if it is on the lowest row.
 		if (pos.getY() > 0) {
 			try {
-				// Get the object in the tile below.
+
+				/** make position elements to make objects of them later
+				 * 
+				 * 
+				 * */
 				Position below = pos.moveDirection(Direction.SOUTH);
 				Position east = pos.moveDirection(Direction.EAST);
 				Position west = pos.moveDirection(Direction.WEST);
@@ -62,43 +66,40 @@ public abstract class AbstractBDFallingObject extends AbstractBDKillingObject {
 				IBDObject under = owner.get(below);
 				IBDObject right = null;
 				IBDObject left = null;
-				IBDObject underRight= null;
+				IBDObject underRight = null;
 				IBDObject underLeft = null;
-			
 
-				//To check if coordinates exist in grid
-				if(pos.getX()+1 < owner.getWidth()){
+				// To check if coordinates exist in grid
+				if (pos.getX() + 1 < owner.getWidth()) {
 					right = owner.get(east);
 					underRight = owner.get(belowEast);
 				}
-				
-				if(pos.getX()> 0){
+
+				if (pos.getX() > 0) {
 					left = owner.get(west);
 					underLeft = owner.get(belowWest);
-					
+
 				}
-				
-				
+
 				if (falling) {
-					
+
 					// fall one step if tile below is empty or killable
 					if (under instanceof BDEmpty || under instanceof IBDKillable) {
 						prepareMoveTo(Direction.SOUTH);
-					} 
-					
-					else if(under instanceof BDRock){
-						if(underRight instanceof BDEmpty ||underRight instanceof IBDKillable){
-						prepareMoveTo(Direction.SOUTH);
-						prepareMoveTo(Direction.EAST);
-						}
-						else if(underLeft instanceof BDEmpty ||underLeft instanceof IBDKillable){
+					}
+					// checks if rock is under falling object, then checks if
+					// the south east block is instanceof empty or killable,
+					// then it prepares to move south then east
+					else if (under instanceof BDRock) {
+						if (underRight instanceof BDEmpty || underRight instanceof IBDKillable) {
+							prepareMoveTo(Direction.SOUTH);
+							prepareMoveTo(Direction.EAST);
+						} else if (underLeft instanceof BDEmpty || underLeft instanceof IBDKillable) {
 							prepareMoveTo(Direction.SOUTH);
 							prepareMoveTo(Direction.WEST);
-						}
-						else
+						} else
 							falling = false;
-					}
-					else {
+					} else {
 						falling = false;
 					}
 				} else {

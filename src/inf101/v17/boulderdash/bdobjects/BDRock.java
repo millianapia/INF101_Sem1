@@ -20,46 +20,57 @@ import java.io.InputStream;
 public class BDRock extends AbstractBDFallingObject {
 	private ImagePattern image;
 
+	// added texture to wall through ImagePattern
 	public BDRock(BDMap owner) {
 		super(owner);
-		  InputStream resourceAsStream = getClass().getResourceAsStream("../rock.png");
-	        image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1,1, true);
+		InputStream resourceAsStream = getClass().getResourceAsStream("../rock.png");
+		image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1, 1, true);
 	}
 
+	// returns image instead of color
 	@Override
 	public Paint getColor() {
 
 		return image;
 	}
 
-	  public boolean push(Direction dir) {
-	        Position rockPos = this.getPosition();
-	        switch (dir) {
-	            case EAST: if (owner.canGo(rockPos, dir)) {
-	                if (owner.get(rockPos.getX()+1,rockPos.getY()) instanceof BDEmpty) {
-	                    try {
-	                        prepareMove(rockPos.getX()+1,rockPos.getY());
-	                        step();
-	                        return true;
-	                    } catch (IllegalMoveException e) {
-	                        return false;
-	                    }
-	                }
-	            }
-	            case WEST: if (owner.canGo(rockPos, dir)) {
-	                if (owner.get(rockPos.getX()-1,rockPos.getY()) instanceof BDEmpty) {
-	                    try {
-	                        prepareMove(rockPos.getX()-1,rockPos.getY());
-	                        step();
-	                        return true;
-	                    } catch (IllegalMoveException e) {
-	                        return false;
-	                    }
-	                }
-	         
-	            }
-	            default: return false;
-	        }
-	    }
+	/*
+	 * method to push the stone in given direction Checks if direction is east
+	 * or west, then check if the next position is empty, then sets the next
+	 * position in preparemove. Takes a step to avoid rock eating player. 
+	 * returns true so it get pushed
+	 */
+	public boolean push(Direction dir) {
+		Position rockPos = this.getPosition();
+		switch (dir) {
+		case EAST:
+			if (owner.canGo(rockPos, dir)) {
+				if (owner.get(rockPos.getX() + 1, rockPos.getY()) instanceof BDEmpty) {
+					try {
+						prepareMove(rockPos.getX() + 1, rockPos.getY());
+						step();
+						return true;
+					} catch (IllegalMoveException e) {
+						return false;
+					}
+				}
+			}
+		case WEST:
+			if (owner.canGo(rockPos, dir)) {
+				if (owner.get(rockPos.getX() - 1, rockPos.getY()) instanceof BDEmpty) {
+					try {
+						prepareMove(rockPos.getX() - 1, rockPos.getY());
+						step();
+						return true;
+					} catch (IllegalMoveException e) {
+						return false;
+					}
+				}
+
+			}
+		default:
+			return false;
+		}
+	}
 
 }

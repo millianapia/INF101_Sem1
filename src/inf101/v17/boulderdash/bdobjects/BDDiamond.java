@@ -18,6 +18,7 @@ import inf101.v17.boulderdash.maps.BDMap;
 public class BDDiamond extends AbstractBDFallingObject {
 	private ImagePattern image;
 
+	// added texture to wall through ImagePattern
 	public BDDiamond(BDMap owner) {
 		super(owner);
 		  InputStream resourceAsStream = getClass().getResourceAsStream("../diamond.png");
