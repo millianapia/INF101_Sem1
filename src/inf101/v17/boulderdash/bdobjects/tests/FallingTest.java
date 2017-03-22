@@ -183,25 +183,24 @@ public class FallingTest {
 		
 		
 		System.out.println("steinpos1"+rockPos);
-		
 		System.out.println("spillerpos1: "+playerPos);
+		playerPos.moveDirection(Direction.EAST);
 
 	
-		
-		playerPos.moveDirection(Direction.EAST);
+	
+	
+		player.step();
+		player.step();
+
+		player.step();
+		player.step();
+
 		map.step();
 		map.step();
 		map.step();
 		map.step();
 
-		rock.step();
-		rock.step();
 
-		rock.step();
-		rock.step();
-
-		
-		map.step();
 	
 		
 		System.out.println("spillerpos2: "+playerPos);

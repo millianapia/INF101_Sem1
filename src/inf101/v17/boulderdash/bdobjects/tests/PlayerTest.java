@@ -8,77 +8,79 @@ import org.junit.Test;
 
 import inf101.v17.boulderdash.Position;
 import inf101.v17.boulderdash.bdobjects.BDBug;
+import inf101.v17.boulderdash.bdobjects.BDDiamond;
+import inf101.v17.boulderdash.bdobjects.BDPlayer;
+import inf101.v17.boulderdash.bdobjects.BDRock;
 import inf101.v17.boulderdash.bdobjects.IBDObject;
 import inf101.v17.boulderdash.maps.BDMap;
 import inf101.v17.datastructures.IGrid;
 import inf101.v17.datastructures.MyGrid;
+import javafx.scene.input.KeyCode;
 
 public class PlayerTest {
-	
+
 	private BDMap map;
-	
+
 	@Test
 	public void diamondTest() {
-		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
-		grid.set(0, 0, '*');
-		grid.set(0, 1, '*');
-		grid.set(0, 2, '*');
-		grid.set(1, 0, '*');
-		grid.set(1, 2, '*');
-		grid.set(2, 0, '*');
-		grid.set(2, 1, '*');
-		grid.set(2, 2, '*');
-		grid.set(1, 1, 'b');
+		IGrid<Character> grid = new MyGrid<>(1, 2, ' ');
+		grid.set(0, 0, 'p');
+		grid.set(0, 1, 'd');
 		map = new BDMap(grid);
 
 		// find the bug
-		Position bugPos = new Position(1, 1);
-		IBDObject bug = map.get(bugPos);
+		Position playerPos = new Position(0, 0);
+		IBDObject player = map.get(playerPos);
+		Position diamondPos = new Position(0, 1);
+		IBDObject diamond = map.get(diamondPos);
 
-		assertTrue(bug instanceof BDBug);
+		assertTrue(player instanceof BDPlayer);
+		assertTrue(diamond instanceof BDDiamond);
 
-		for (int i = 0; i < 10; i++) {
+		System.out.println(playerPos);
+		System.out.println(diamondPos);
+
+		((BDPlayer) player).keyPressed(KeyCode.RIGHT);
+		for (int i = 0; i < 10; i++)
 			map.step();
-			if (map.get(bugPos) != bug) {
 
-				fail("Bug is not enclosed");
+		System.out.println(playerPos);
+		System.out.println(diamondPos);
+		assertEquals(playerPos, diamondPos);
 
-			}
-
-		}
-
-		assertEquals(bugPos, map.getPosition(bug));
 	}
-	
+
+	@Test
 	public void pushTest() {
-		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
-		grid.set(0, 0, '*');
-		grid.set(0, 1, '*');
-		grid.set(0, 2, '*');
-		grid.set(1, 0, '*');
-		grid.set(1, 2, '*');
-		grid.set(2, 0, '*');
-		grid.set(2, 1, '*');
-		grid.set(2, 2, '*');
-		grid.set(1, 1, 'b');
+		IGrid<Character> grid = new MyGrid<>(1, 3, ' ');
+		grid.set(0, 0, 'p');
+		grid.set(0, 1, 'r');
 		map = new BDMap(grid);
 
 		// find the bug
-		Position bugPos = new Position(1, 1);
-		IBDObject bug = map.get(bugPos);
+		Position playerPos = new Position(0, 0);
+		IBDObject player = map.get(playerPos);
+		Position rockPos = new Position(0, 1);
+		Position origRockPos = new Position (0,1);
+		Position nextRockPos = new Position (0,2);
+		IBDObject rock = map.get(rockPos);
 
-		assertTrue(bug instanceof BDBug);
+		assertTrue(player instanceof BDPlayer);
+		assertTrue(rock instanceof BDRock);
 
-		for (int i = 0; i < 10; i++) {
+		System.out.println(playerPos + "playpos1");
+		System.out.println(rockPos + "rockpos1");
+
+		((BDPlayer) player).keyPressed(KeyCode.RIGHT);
+		player.step();
+		for (int i = 0; i < 10; i++){
+
 			map.step();
-			if (map.get(bugPos) != bug) {
-
-				fail("Bug is not enclosed");
-
-			}
-
 		}
+		System.out.println(playerPos + "playpos2");
+		System.out.println(rockPos + "rockpos2");
 
-		assertEquals(bugPos, map.getPosition(bug));
+		assertEquals(playerPos, origRockPos);
+		assertEquals(rockPos, nextRockPos);
 	}
 }

@@ -1,6 +1,7 @@
 package inf101.v17.boulderdash.bdobjects;
 
-import javafx.scene.image.Image;import javafx.scene.image.Image;
+import javafx.scene.image.Image;
+import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 
@@ -10,7 +11,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
 import static org.junit.Assert.assertTrue;
-
 
 import inf101.v17.boulderdash.Direction;
 import inf101.v17.boulderdash.IllegalMoveException;
@@ -40,17 +40,17 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 	 */
 	protected int diamondCnt = 0;
 	private ImagePattern image;
+
 	public BDPlayer(BDMap owner) {
 		super(owner);
-		  InputStream resourceAsStream = getClass().getResourceAsStream("../player.png");
-	        image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1,1, true);
+		InputStream resourceAsStream = getClass().getResourceAsStream("../player.png");
+		image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1, 1, true);
 	}
 
 	@Override
 	public Paint getColor() {
 		return image;
 	}
-	
 
 	/**
 	 * @return true if the player is alive
@@ -91,36 +91,30 @@ public class BDPlayer extends AbstractBDMovingObject implements IBDKillable {
 		IBDObject player = owner.get(this.getX(), this.getY());
 		if (askedToGo != null && owner.canGo(player, askedToGo)) {
 			Position next = playerPos.moveDirection(askedToGo);
-			
-			
-			
-			if(owner.get(next) instanceof BDDiamond){
-			
+
+			if (owner.get(next) instanceof BDDiamond) {
+
 				try {
-					prepareMove(playerPos.moveDirection(askedToGo));	
+					prepareMove(playerPos.moveDirection(askedToGo));
 					diamondCnt++;
 				} catch (IllegalMoveException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
-				}
-			else if(owner.get(next) instanceof BDRock){
+
+			} else if (owner.get(next) instanceof BDRock) {
 				try {
 					BDRock rock = (BDRock) owner.get(next);
-if(rock.push(askedToGo))
-				
-						prepareMove(playerPos.moveDirection(askedToGo));	
+					if (rock.push(askedToGo))
 
-						
+						prepareMove(playerPos.moveDirection(askedToGo));
 
 				} catch (IllegalMoveException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			}
-			else if(owner.get(next) instanceof BDBug){
+
+			} else if (owner.get(next) instanceof BDBug) {
 				try {
 					prepareMove(playerPos.moveDirection(askedToGo));
 					kill();
@@ -128,9 +122,8 @@ if(rock.push(askedToGo))
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-			}
-			else{
+
+			} else {
 				try {
 					prepareMove(playerPos.moveDirection(askedToGo));
 				} catch (IllegalMoveException e) {
@@ -139,10 +132,6 @@ if(rock.push(askedToGo))
 				}
 			}
 
-			
-			
-			
-			
 		}
 		askedToGo = null;
 		super.step();
