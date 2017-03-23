@@ -172,36 +172,18 @@ public class FallingTest {
 	@Test
 	public void eastPushTest() {
 		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
-		grid.set(0, 0, 'p');
-		// grid.set(0, 1, 'r');
+		grid.set(0, 1, 'r');
 		map = new BDMap(grid);
-		// Position rockPos = new Position(0, 1);
-		Position playerPos = new Position(0, 0);
-		// IBDObject rock = map.get(rockPos);
-		IBDObject player = map.get(playerPos);
-		// assertTrue(rock instanceof BDRock);
-		assertTrue(player instanceof BDPlayer);
+		Position rockPos = new Position(0, 1);
+		IBDObject rock = map.get(rockPos);
+		assertTrue(rock instanceof BDRock);
 
-		BDPlayer player2 = (BDPlayer) player;
-		Position playerPos2 = map.getPosition(player2);
-		// System.out.println("steinpos1"+rockPos);
-		System.out.println("spillerpos1: " + playerPos2);
+		BDRock rock2 = (BDRock) rock;
 
-		try {
-			player2.prepareMove(playerPos2.moveDirection(Direction.EAST));
-		} catch (IllegalMoveException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		rock2.push(Direction.EAST);
 
-		for (int i = 0; i < 100; i++)
-			player2.step();
 
-		System.out.println("spillerpos2: " + map.getPosition(player2));
-		// System.out.println("steinpos2"+rockPos);
-
-		// assertEquals(rock, map.get(0, 2));
-
+		assertEquals(rock2, map.get(1, 1));
 	}
 
 }
