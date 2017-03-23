@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import inf101.v17.boulderdash.Direction;
 import inf101.v17.boulderdash.Position;
 import inf101.v17.boulderdash.bdobjects.BDBug;
 import inf101.v17.boulderdash.bdobjects.BDDiamond;
@@ -33,14 +34,9 @@ public class PlayerTest {
 		assertTrue(player instanceof BDPlayer);
 		assertTrue(diamond instanceof BDDiamond);
 
-		System.out.println(playerPos + "diamant player1");
-		System.out.println(diamondPos + "diamant diamant11");
 		map.getPlayer().keyPressed(KeyCode.RIGHT);
 		map.step();
 
-	
-		System.out.println(playerPos + "diamant player");
-		System.out.println(diamondPos + "diamant diamant");
 		boolean gridContainsDiamond = false;
 		for (int i = 0; i < grid.getWidth(); i++) {
 			for (int j = 0; j < grid.getHeight(); j++) {
@@ -65,28 +61,21 @@ public class PlayerTest {
 		grid.set(1, 0, 'r');
 		map = new BDMap(grid);
 
-		// find the bug
 		Position playerPos = new Position(0, 0);
 		IBDObject player = map.get(playerPos);
-		Position rockPos = new Position(0, 1);
+		Position rockPos = new Position(1, 0);
 		IBDObject rock = map.get(rockPos);
 
 		assertTrue(player instanceof BDPlayer);
 		assertTrue(rock instanceof BDRock);
+		BDRock rock2 = (BDRock) rock;
+		BDPlayer player2 = (BDPlayer) player;
 
-		System.out.println(playerPos + "playpos1");
-		System.out.println(rockPos + "rockpos1");
+		map.getPlayer().keyPressed(KeyCode.RIGHT);
+		map.step();
 
-		((BDPlayer) player).keyPressed(KeyCode.RIGHT);
-		player.step();
-		for (int i = 0; i <= 10; i++) {
+		rock2.push(Direction.EAST);
 
-			map.step();
-		}
-		System.out.println(playerPos + "playpos2");
-		System.out.println(rockPos + "rockpos2");
-
-		assertEquals(playerPos, map.get(0, 1));
-		// assertEquals(rockPos, map.get(0,3);
+		assertEquals(player2, map.get(1, 0));
 	}
 }
