@@ -1,8 +1,6 @@
 package inf101.v17.boulderdash.bdobjects.tests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -23,36 +21,41 @@ public class PlayerTest {
 
 	@Test
 	public void diamondTest() {
-		IGrid<Character> grid = new MyGrid<>(2, 2, ' ');
+		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
 		grid.set(0, 0, 'p');
 		grid.set(1, 0, 'd');
 		map = new BDMap(grid);
 
 		Position playerPos = new Position(0, 0);
 		IBDObject player = map.get(playerPos);
-		Position diamondPos = new Position(0, 1);
+		Position diamondPos = new Position(1, 0);
 		IBDObject diamond = map.get(diamondPos);
 		assertTrue(player instanceof BDPlayer);
 		assertTrue(diamond instanceof BDDiamond);
-		
-		
-		((BDPlayer) player).keyPressed(KeyCode.RIGHT);
-		player.step();
-		for (int i = 0; i <= 10; i++) {
 
-			map.step();
-		}
+		System.out.println(playerPos + "diamant player1");
+		System.out.println(diamondPos + "diamant diamant11");
+		map.getPlayer().keyPressed(KeyCode.RIGHT);
+		map.step();
+
+	
 		System.out.println(playerPos + "diamant player");
 		System.out.println(diamondPos + "diamant diamant");
+		boolean gridContainsDiamond = false;
+		for (int i = 0; i <= grid.getWidth(); i++) {
+			for (int j = 0; j <= grid.getHeight(); j++) {
+				if (map.get(i, j).equals(diamond)) {
+					gridContainsDiamond = true;
+					break;
+				} else {
+					gridContainsDiamond = false;
 
-		for (int i = 0; i <= 2; i++) {
-			for (int j = 0; j <= 3; j++) {
-				if (map.get(i, j) instanceof BDDiamond) {
-					fail("diamond is not eaten");
 				}
 			}
 		}
-		
+
+		assertFalse(gridContainsDiamond);
+
 	}
 
 	@Test

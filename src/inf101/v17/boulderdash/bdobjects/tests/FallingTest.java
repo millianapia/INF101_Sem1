@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import inf101.v17.boulderdash.Direction;
+import inf101.v17.boulderdash.IllegalMoveException;
 import inf101.v17.boulderdash.Position;
 import inf101.v17.boulderdash.bdobjects.AbstractBDFallingObject;
 import inf101.v17.boulderdash.bdobjects.BDBug;
@@ -167,56 +168,40 @@ public class FallingTest {
 		assertEquals(rock, map.get(0, 1));
 
 	}
-	
+
 	@Test
 	public void eastPushTest() {
 		IGrid<Character> grid = new MyGrid<>(3, 3, ' ');
 		grid.set(0, 0, 'p');
-		grid.set(0, 1, 'r');
+		// grid.set(0, 1, 'r');
 		map = new BDMap(grid);
-		Position rockPos = new Position(0, 1);
+		// Position rockPos = new Position(0, 1);
 		Position playerPos = new Position(0, 0);
-		IBDObject rock = map.get(rockPos);
+		// IBDObject rock = map.get(rockPos);
 		IBDObject player = map.get(playerPos);
-		assertTrue(rock instanceof BDRock);
+		// assertTrue(rock instanceof BDRock);
 		assertTrue(player instanceof BDPlayer);
-		
-		
-		System.out.println("steinpos1"+rockPos);
-		System.out.println("spillerpos1: "+playerPos);
-		playerPos.moveDirection(Direction.EAST);
 
-	
-	
-	
-		player.step();
-		player.step();
+		BDPlayer player2 = (BDPlayer) player;
+		Position playerPos2 = map.getPosition(player2);
+		// System.out.println("steinpos1"+rockPos);
+		System.out.println("spillerpos1: " + playerPos2);
 
-		player.step();
-		player.step();
+		try {
+			player2.prepareMove(playerPos2.moveDirection(Direction.EAST));
+		} catch (IllegalMoveException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
-		map.step();
-		map.step();
-		map.step();
-		map.step();
+		for (int i = 0; i < 100; i++)
+			player2.step();
 
+		System.out.println("spillerpos2: " + playerPos2);
+		// System.out.println("steinpos2"+rockPos);
 
-	
-		
-		System.out.println("spillerpos2: "+playerPos);
-		System.out.println("steinpos2"+rockPos);
-		
-		
-		assertEquals(rock, map.get(0, 2));
-		
-		
-		
-	
+		// assertEquals(rock, map.get(0, 2));
+
 	}
-	
-	
-	
-	
-	
 
 }
