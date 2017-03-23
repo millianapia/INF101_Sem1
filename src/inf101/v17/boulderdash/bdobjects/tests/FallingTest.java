@@ -197,7 +197,7 @@ public class FallingTest {
 		for (int i = 0; i < 100; i++)
 			player2.step();
 
-		System.out.println("spillerpos2: " + playerPos2);
+		System.out.println("spillerpos2: " + map.getPosition(player2));
 		// System.out.println("steinpos2"+rockPos);
 
 		// assertEquals(rock, map.get(0, 2));

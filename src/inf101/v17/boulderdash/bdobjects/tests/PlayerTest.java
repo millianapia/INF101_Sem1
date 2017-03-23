@@ -42,8 +42,8 @@ public class PlayerTest {
 		System.out.println(playerPos + "diamant player");
 		System.out.println(diamondPos + "diamant diamant");
 		boolean gridContainsDiamond = false;
-		for (int i = 0; i <= grid.getWidth(); i++) {
-			for (int j = 0; j <= grid.getHeight(); j++) {
+		for (int i = 0; i < grid.getWidth(); i++) {
+			for (int j = 0; j < grid.getHeight(); j++) {
 				if (map.get(i, j).equals(diamond)) {
 					gridContainsDiamond = true;
 					break;
