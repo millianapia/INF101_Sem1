@@ -5,6 +5,7 @@ import inf101.v17.boulderdash.IllegalMoveException;
 import inf101.v17.boulderdash.Position;
 import inf101.v17.boulderdash.maps.BDMap;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
@@ -19,12 +20,19 @@ import java.io.InputStream;
 
 public class BDRock extends AbstractBDFallingObject {
 	private ImagePattern image;
+	private AudioClip moveSound;
 
 	// added texture to wall through ImagePattern
 	public BDRock(BDMap owner) {
 		super(owner);
+		try{
 		InputStream resourceAsStream = getClass().getResourceAsStream("../rock.png");
 		image = new ImagePattern(new Image(resourceAsStream), 0, 0, 1, 1, true);
+		moveSound = new AudioClip(getClass().getResource("../stone-drag.mp3").toString());
+		}
+		catch(Exception e){
+			System.out.println("Wrong file");
+		}
 	}
 
 	// returns image instead of color
@@ -49,6 +57,7 @@ public class BDRock extends AbstractBDFallingObject {
 					try {
 						prepareMove(rockPos.getX() + 1, rockPos.getY());
 						step();
+						moveSound.play();
 						return true;
 					} catch (IllegalMoveException e) {
 						return false;
@@ -61,6 +70,7 @@ public class BDRock extends AbstractBDFallingObject {
 					try {
 						prepareMove(rockPos.getX() - 1, rockPos.getY());
 						step();
+						moveSound.play();
 						return true;
 					} catch (IllegalMoveException e) {
 						return false;

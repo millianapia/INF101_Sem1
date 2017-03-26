@@ -15,6 +15,7 @@ Blender Foundation
 (Submitted by Lamoot)
 Thursday, November 18, 2010 - 14:05
 http://opengameart.org/content/push-stone-boulder-yo-frankie 
+Copyright license: CC-BY 3.0
 
 texture:
 Colored Blocks - sketchy
@@ -22,4 +23,4 @@ Author:
 TinyWorlds
 Monday, March 26, 2012 - 12:59
 http://opengameart.org/content/colored-blocks-sketchy
-
+Copyright license: CC0
