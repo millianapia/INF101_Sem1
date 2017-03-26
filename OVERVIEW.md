@@ -1,6 +1,6 @@
 # Oversikt
-2.2 ligger i egen pdf som heter "Semesteroppgave - 1.pdf"
-
+ - 2.2 ligger i egen pdf som heter "Semesteroppgave - 1.pdf"
+ - Har laget et nytt level, heter level2.txt
 
 
 song:
